@@ -4,10 +4,10 @@ const URL = require("../models/url");
 async function GenerateNewUrl(req, res) {
   const body = req.body;
   if (!body.url) return res.status(400).json({ error: "url is required" });
-  const shortID = shortid();
+  const shortID = shortid.generate();  // Use shortid.generate()
 
   await URL.create({
-    shortId: shortID,
+    shortID: shortID,  // Ensure this matches the model definition
     redirectURL: body.url,
     visitHistory: [],
   });
@@ -15,4 +15,4 @@ async function GenerateNewUrl(req, res) {
   return res.json({ id: shortID });
 }
 
-module.exports = { GenerateNewUrl };  // Changed to named export
+module.exports = { GenerateNewUrl };
