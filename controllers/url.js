@@ -6,13 +6,13 @@ async function handleGenerateNewShortURL(req, res) {
   if (!body.url) return res.status(400).json({ error: "url is required" });
   const shortID = shortid();
 
-  await URL.create({
+ const response = await URL.create({
     shortId: shortID,
     redirectURL: body.url,
     visitHistory: [],
   });
 
-  return res.json({ id: shortID });
+  return res.json({ response });
 }
 
 async function handleGetAnalytics(req, res) {
